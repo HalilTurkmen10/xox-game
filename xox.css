@@ -1,0 +1,137 @@
+*,*::before,*::after{ box-sizing: border-box; }
+
+:root{
+    --bg-color: #000;
+    --text-color: #fff;
+    --border-color: #fff;
+    --line-color: #fff;
+    --hover-color: #666;
+    --cell-size: 100px;
+    --mark-size: 90px;
+}
+
+body{ margin: 0; padding: 0; background-color:var(--bg-color) ; }
+
+.board{
+    width: 100vw;
+  height: 100vh; 
+  display: grid; 
+  grid-template-columns: repeat(3,auto) ;
+  justify-content: center;
+  align-content: center;
+   align-items: center;
+}
+
+.cell {
+    width:  var(--cell-size);
+    height: var(--cell-size);
+    border: 2px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.cell:first-child,.cell:nth-child(2),.cell:nth-child(3){ border-top: 0;}
+.cell:last-child,.cell:nth-child(8),.cell:nth-child(7){ border-bottom: 0;}
+.cell:nth-child(3n+1){border-left: 0;}
+.cell:nth-child(3n+3){border-right: 0;}
+
+
+.cell.cross::before,
+.cell.cross::after,
+.board.cross .cell:not(.cross):not(.circle):hover::before,
+.board.cross .cell:not(.cross):not(.circle):hover::after{
+    content: '';
+    position: absolute;
+    width: calc(var(--mark-size) * .13);
+    height: var(--mark-size);
+    background-color: var(--line-color);
+}
+
+
+.cell.cross::before,
+.board.cross .cell:not(.cross):not(.circle):hover::before{
+  transform: rotate(45deg);
+}
+
+
+.cell.cross::after,
+.board.cross .cell:not(.cross):not(.circle):hover::after{
+  transform: rotate(-45deg);
+}
+
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.cross):not(.circle):hover::before,
+.board.circle .cell:not(.cross):not(.circle):hover::after{
+    content: '';
+    position:absolute;
+    border-radius: 50%;
+    background-color: var(--line-color);
+}
+
+.cell.circle::before,
+.board.circle .cell:not(.cross):not(.circle):hover::before{
+    width: calc(var(--mark-size) * .9);
+    height: calc(var(--mark-size) * .9);
+}
+
+.cell.circle::after,
+.board.circle .cell:not(.cross):not(.circle):hover::after{
+    width: calc(var(--mark-size) * .65);
+    height: calc(var(--mark-size) * .65);
+    background-color: var(--bg-color);
+}
+
+.board.cross .cell:not(.cross):not(.circle):hover::before,
+.board.cross .cell:not(.cross):not(.circle):hover::after,
+.board.circle .cell:not(.cross):not(.circle):hover::before{
+    background-color: var(--hover-color);
+}
+
+.cell.cross,.cell.circle{ cursor: not-allowed; }
+
+.result{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(0, 0, 0);
+    color: var(--text-color);
+    font-size: 5rem;
+}
+
+.result button{
+    background-color: #fff;
+    color: #000;
+    padding: .25em .5em;
+   font-size: 2rem; 
+   cursor: pointer;
+   border: 0;
+}
+
+
+.result button:hover{
+    background-color:#000;
+    color:#fff;
+}
+.result.show{ display: flex; }
+
+
+
+
+
+
+
+
+
+
+
+
